@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+
 #include "TankAimingComponent.generated.h"
 
+class UTankBarrel;
 
+//Aims the Barrel at designated target
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKBATTLE_API UTankAimingComponent : public UActorComponent
 {
@@ -15,7 +18,7 @@ class TANKBATTLE_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-	void SetBarrelReference(UStaticMeshComponent *BarrelToSet);
+	void SetBarrelReference(UTankBarrel * BarrelToSet);
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -24,7 +27,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void AimAt(FVector TargetLocation, float MuzzleVelocity);
+	//TODO add set turrent reference
 
 private: 
-	UStaticMeshComponent* Barrel=nullptr;
+	UTankBarrel* Barrel=nullptr;
+	bool MoveBarrelTowards(FVector FiringSolution);
+
 };
