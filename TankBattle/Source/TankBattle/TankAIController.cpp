@@ -45,3 +45,12 @@ ATank* ATankAIController::GetPlayerTank() const
     }
     return PlayerTank;
 }
+
+void ATankAIController::Tick(float deltaTime)
+{
+    Super::Tick(deltaTime);
+    // TODO guard pointers!
+    //approach the target designated by crosshair
+    auto AimPoint = GetWorld()->GetFirstPlayerController()->GetTargetLocation(this->GetControlledTank());
+    GetControlledTank()->AimAt(AimPoint);
+}
