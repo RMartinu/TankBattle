@@ -3,6 +3,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
@@ -19,6 +20,11 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
 }
 
 // Called when the game starts
@@ -86,8 +92,9 @@ bool UTankAimingComponent::MoveBarrelTowards(FVector FiringSolution)
 	auto AimAsRotator = FiringSolution.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 	//move barrel to reduce difference within max elevation speed and frame time
-	Barrel->ElevateBarrel(DeltaRotator.Pitch); //TODO get rid of magic numbers
-	UE_LOG(LogTemp, Warning, TEXT("Aiming at: %s"), *AimAsRotator.ToString())
+	Barrel->ElevateBarrel(DeltaRotator.Pitch); 
+	Turret->TurretRotate(DeltaRotator.Yaw);
+	//UE_LOG(LogTemp, Warning, TEXT("Aiming at: %s"), *AimAsRotator.ToString())
 	return false;
 }
 

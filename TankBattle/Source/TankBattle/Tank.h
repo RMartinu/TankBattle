@@ -9,6 +9,7 @@
 #include "Tank.generated.h"
 class UTankAimingComponent;
 class UTankBarrel;
+class UTankTurret;
 
 UCLASS()
 class TANKBATTLE_API ATank : public APawn
@@ -20,6 +21,9 @@ public:
 	ATank();
 	UFUNCTION(BluePrintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
+	UFUNCTION(BluePrintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* TurretToSet);
 	
 protected:
 	// Called when the game starts or when spawned
